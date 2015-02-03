@@ -30,7 +30,7 @@ class MainApp extends PolymerElement {
   attached() {
     super.attached();
     
-    JGrid gw0=this.shadowRoot.querySelector('cj-grid');
+    JGrid gw0=this.shadowRoot.querySelector('$GRID_TAG');
        HttpRequest.getString('gss1983_Code-small.csv').then((data) {
            CsvAdapter csv = new CsvAdapter(data);
            var cols = getColDefs(csv.columns);
