@@ -1,4 +1,4 @@
-# {{ projectName }}
+# POLYMER + SLICKDART
 
 A starter template for a polymer.dart web app.
 
