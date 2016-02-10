@@ -1,0 +1,63 @@
+<script src='jquery220.js'></script>
+<script src='jqueryui.min.js'></script>
+<script src='packages/selectize/selectize.js'></script>
+
+<link rel="stylesheet" href="selectize.css">
+<script type="text/javascript">
+  var __DartJqSelect = __DartJqSelect || {
+    create: function(selector, option) {
+      return $(selector).selectize(option)[0].selectize;
+    },
+    getOptionByValue: function(obj, key) {
+      return obj[key];
+    }
+  };
+</script>
+<dom-module id="combo-box">
+  <style>
+    :host {
+        visibility: hidden;
+      /*background-color:yellow;*/
+    }
+     option{
+      display: none;
+    }
+    :host(.resolved){
+      animation: fadein 1s;
+      -webkit-animation: fadein 1s;
+      /* Safari, Chrome and Opera > 12.1 */
+      -moz-animation: fadein 0.4s;
+      /* Firefox < 16 */
+      -ms-animation: fadein 0.4s;
+      /* Internet Explorer */
+      visibility: visible;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    #label {
+      font-size: 0.8em;
+      font-family: sans-serif;
+      color: #737373;
+      font-weight: 200;
+    }
+
+    #label.hide {
+      visibility: hidden;
+    }
+  </style>
+  <template>
+    <span id='label' class='hide'>{{placeHolder}}</span>
+    <select id='body' name="" multiple class="" style="width:100%" max-item='{{maxItem}}'>
+    </select>
+    <content id='pre-opt' select='option' class='unresolve'>
+    </content>
+  </template>
+</dom-module>

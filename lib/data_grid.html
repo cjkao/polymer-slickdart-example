@@ -1,0 +1,73 @@
+<dom-module id="data-grid">
+  <style>
+    :host {
+      display: block;
+      visibility: hidden;
+
+    }
+    :host(.resolved) {
+      animation: fadein 1s;
+      -webkit-animation: fadein 1s;
+      /* Safari, Chrome and Opera > 12.1 */
+      -moz-animation: fadein 0.4s;
+      /* Firefox < 16 */
+      -ms-animation: fadein 0.4s;
+      /* Internet Explorer */
+      visibility: visible;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+      .slick-viewport.slick-viewport-bottom.slick-viewport-left {
+        overflow: hidden;
+      }
+
+      .slick-header-column {
+        border-color: transparent #CCCCCC #CCCCCC transparent;
+        border-style: solid solid solid solid;
+        border-width: 1px 1px 0 0px;
+      }
+
+      .slick-header-column.ui-state-default {
+        font: 9pt arial, sans-serif;
+        color: black;
+        background-color: #F3F3F3;
+        border-top: 1px solid #CCCCCC;
+        border-bottom: 1px solid #CCCCCC;
+        background-image: none;
+      }
+
+      .slick-header-column.ui-state-default.ui-state-hover {
+        background-color: #E3F3FF;
+      }
+
+      .slick-header-column.slick-header-column-sorted {
+        background-color: #F3F3AF;
+      }
+
+      .slick-column-name {
+        margin-right: 14px;
+        display: block;
+        text-align: center;
+      }
+      #jgrid{
+        height:100%;
+      }
+  </style>
+
+  <template>
+
+    <cj-grid id='jgrid'>
+      <content select='style'>
+
+      </content>
+    </cj-grid>
+    <content select='mx-column'></content>
+  </template>
+</dom-module>
