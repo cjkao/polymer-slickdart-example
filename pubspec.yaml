@@ -13,17 +13,19 @@ dependencies:
   polymer: ^1.0.0-rc.12
   reflectable: ^0.5.0
   selectize:
-      git: https://github.com/cjkao/selectize.git
+    path: ../selectize
 #  polymer_datepicker: ^0.9.2
-  autonotify_observe: ^1.0.0
+#  autonotify_observe: ^1.0.0
 #  less_dart: any
 transformers:
 #- less_dart
 - polymer:
-    entry_points: web/index.html
-    entry_points: combobox/index.html
+    entry_points:
+      - web/index.html
+      - web/combobox/index.html
 - $dart2js:
     minify: true
     commandLineOptions:
     - --trust-type-annotations
     - --trust-primitives
+    $include: '**/*.bootstrap.initialize.dart'

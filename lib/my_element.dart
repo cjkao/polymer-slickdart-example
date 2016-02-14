@@ -3,23 +3,31 @@ library my_element;
 
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
-import "package:autonotify_observe/autonotify_observe.dart";
-
-//import "package:polymer_datepicker/polymer_datepicker.dart";
+import 'package:polymer_elements/paper_spinner.dart';
+import 'package:polymer_elements/paper_checkbox.dart';
+import 'package:polymer_elements/paper_dialog_scrollable.dart';
+import 'package:polymer_elements/paper_dialog.dart';
+import 'package:polymer_elements/paper_button.dart';
+import 'package:polymer_elements/neon_animation/animations/fade_out_animation.dart';
+import 'package:polymer_mx/combo_box.dart';
 
 @PolymerRegister('date-el')
 class DateEl extends PolymerElement {
-  @Property(notify: true)
-  String color = 'red';
+  @property String selected = '0';
+  @property bool locked = true;
+  @property int maxItem = 3;
+  DateEl.created() : super.created();
+  void attached() {
+    print('my elem attached');
 
-  void changeVal() {
-    set('color', 'green');
-    fire("change", detail: 'XZ');
+    ComboBox pg = $['pgCombo'];
+    pg.addSelectedItem("5");
+    pg.removeSelectedItem("4");
   }
 
-  @observable
-  @property
-  DateTime myDate;
-
-  DateEl.created() : super.created();
+  @Listen('dialogBtn.tap')
+  void clickPage2(event, [_]) {
+    //  ($['page2dialog'] as PaperDialog).close();
+    ($['page2dialog'] as PaperDialog).open();
+  }
 }

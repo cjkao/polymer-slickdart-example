@@ -1,5 +1,141 @@
 <dom-module id="date-el">
+  <style is="custom-style">
+    iron-pages {
+      width: 100%;
+      height: 200px;
+      font-size: 1em;
+      color: black;
+    }
+
+    iron-pages div {
+      width: 100%;
+      height: 100%;
+    }
+
+    iron-pages div:nth-child(1) {
+      background-color: #fafafa;
+    }
+
+    iron-pages div:nth-child(2) {
+      background-color: white;
+    }
+
+    iron-pages div:nth-child(3) {
+      background-color: white;
+    }
+
+    paper-tab {
+      background-color: blue;
+      color: yellow;
+    }
+
+    .h200 {
+      width: 200px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    paper-button:hover {
+      background-color: #81d4fa;
+    }
+
+    paper-dialog .buttons {
+      width: inherit;
+    }
+
+    paper-dialog div.cc {
+      margin: 10px;
+      width: inherit;
+    }
+  </style>
+
   <template>
-    <p>My favorite color is <span>{{color}}</span>.</p>
+    <div class='layout vertical '>
+      <paper-tabs selected="{{selected}}">
+        <paper-tab>Combo Box</paper-tab>
+        <paper-tab>Dialog</paper-tab>
+        <paper-tab>SPINNER</paper-tab>
+        <paper-tab>Gird</paper-tab>
+      </paper-tabs>
+      <iron-pages selected="{{selected}}">
+        <div class='container layout vertical'>
+          <div class='layout horizontal center'>
+
+            <paper-checkbox checked={{locked}}>Lock a pizza </paper-checkbox>
+            <combo-box class='h200' max-item$='[[maxItem]]' place-holder='Select a pizza...' lock$='[[locked]]'>
+              <option value="2" selected>Pizza A/B</option>
+              <option value="3">Pizza C</option>
+              <option value="4">Pizza D</option>
+              <option value="5">Pizza E</option>
+              <option value="6">Pizza F</option>
+            </combo-box>
+            Lock state: {{locked}}
+          </div>
+
+        </div>
+        <div>
+          <paper-button raised id='dialogBtn'>
+            <iron-icon icon="file-download"></iron-icon>raised</paper-button>
+          <!-- exit-animation="fade-out-animation" -->
+          <paper-dialog id='page2dialog' class='size-position' modal='true' class='container '>
+            <h2>Header</h2>
+            <div class='cc'>
+              Lorem ipsum......................................................................................
+              <combo-box class='h200' max-item$='[[maxItem]]' place-holder='Select a pizza...' lock$='[[locked]]'>
+                <option value="2" selected>Pizza A/B</option>
+                <option value="3">Pizza C</option>
+                <option value="4">Pizza D</option>
+                <option value="5">Pizza E</option>
+                <option value="6">Pizza F</option>
+              </combo-box>
+
+            </div>
+            <div class="buttons">
+              <paper-button dialog-dismiss>Cancel</paper-button>
+              <paper-button dialog-confirm>Accept</paper-button>
+            </div>
+          </paper-dialog>
+
+        </div>
+        <div>
+          <paper-spinner alt="Loading contacts list" active></paper-spinner>
+        </div>
+        <div>
+          <div class="vertical layout container flex v600">
+            Fronzend Data Grid
+            <combo-box class='' id='pgCombo' max-item='5' place-holder='Select 5 days...'>
+              <option value="0">Sunday</option>
+              <option value="1">Monday
+                <option>
+                  <option value="2">Tuesday</option>
+                  <option value="3">Wednesday</option>
+                  <option value="4" selected>Thursday</option>
+                  <option value="5">Friday</option>
+                  <option value="6">Saturday</option>
+            </combo-box>
+            <data-grid class='flex right-grid'>
+              <style>
+                /* style mixed into shadowroot of cj-grid */
+
+                .slick-header-column {
+                  background-color: #00F3FF;
+                }
+
+                .slick-viewport {
+                  overflow-x: hidden !important;
+                  overflow-y: hidden !important;
+                }
+                /**  to fix width of grid
+              #grid{
+                width:200px;
+              }
+              **/
+              </style>
+            </data-grid>
+          </div>
+        </div>
+      </iron-pages>
+
+    </div>
   </template>
 </dom-module>

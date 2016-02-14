@@ -1,4 +1,4 @@
-library sampleTodo;
+library sample.combo;
 
 export 'package:polymer/init.dart';
 import 'package:polymer_mx/my_element.dart';
@@ -15,13 +15,13 @@ import 'package:slickdart/slick.dart' as grid;
 main() async {
 //  jqSelectBootstrap();
   await initPolymer();
-  var box = querySelector("combo-box") as ComboElement;
+  var box = querySelector("combo-box") as ComboBox;
 //  box.dataProvider = {};
   for (int i = 0; i < 3; ++i) box.addOption('$i@c');
   box.addOptions([
     {'label': 'tainan', 'data': 'zz'}
   ]);
-  ComboElement pg = querySelector('#pgCombo');
+  ComboBox pg = querySelector('#pgCombo');
   pg.addSelectedItem("5");
   pg.removeSelectedItem("4");
 
@@ -35,7 +35,7 @@ main() async {
     });
     dynamicEl.destory();
   });
-  ComboElement dynamicEl = document.createElement("combo-box");
+  ComboBox dynamicEl = document.createElement("combo-box");
   querySelector("body").append(dynamicEl);
   dynamicEl.destory();
   dynamicEl.remove();

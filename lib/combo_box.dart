@@ -9,14 +9,33 @@ import 'dart:js';
 import 'dart:html';
 
 @PolymerRegister('combo-box')
-class ComboElement extends PolymerElement {
+class ComboBox extends PolymerElement {
   int _nid = new Random().nextInt(1 << 32 - 1);
   Selectize _selectRoot;
-  ComboElement.created() : super.created() {
+  @property String removeButton;
+  @property String dragDrop;
+  @property String restoreOnBackspace;
+  @property get values => _selectRoot?.items?.toString();
+  @Property(observer: 'lockChange') bool lock = false;
+
+  /// max selectable items
+  @property int maxItem = 1;
+
+  @reflectable lockChange(bool newLock, bool oldLock) {
+    if (newLock == true) {
+      _selectRoot?.lock();
+    } else {
+      _selectRoot?.unlock();
+    }
+  }
+
+  Object _observeHandle;
+  ComboBox.created() : super.created() {
     print('created');
   }
   _changeHandler(value) {
     var e = new CustomEvent('change', detail: value);
+    this.attributes['value'] = value ?? '';
     this.dispatchEvent(e);
   }
 
@@ -37,11 +56,27 @@ class ComboElement extends PolymerElement {
   }
 
   void attached() {
+    print('attached $lock');
+    _observeHandle = Polymer.dom(this.$['pre-opt']).observeNodes((PolymerDomMutation info) {
+      print('observe  $info');
+      info.addedNodes.forEach((Node node) {
+        ($['body'] as SelectElement).append(node);
+        if (node is OptionElement) {
+          _selectRoot.addOption(new OptValue(value: node.value, text: node.label));
+          if (node.selected) _selectRoot.addItem(node.value, true);
+          _showLabel(true);
+        }
+      });
+    });
+
     ($['body'] as SelectElement)
       ..id = "$_nid"
       ..attributes['placeholder'] = placeHolder;
-    _getNodes(new PolymerDom($['pre-opt']).getDistributedNodes());
-
+    //_getNodes(new PolymerDom($['pre-opt']).getDistributedNodes());
+    var plugins = [];
+    if (removeButton != null) plugins.add('remove_button');
+    if (dragDrop != null) plugins.add('drag_drop');
+    if (restoreOnBackspace != null) plugins.add('restore_on_backspace');
     //  print($['body'].id);
     _selectRoot = selectize(
         "#$_nid",
@@ -51,7 +86,8 @@ class ComboElement extends PolymerElement {
             onInitialize: allowInterop(_initHandler),
             onFocus: allowInterop(_focusHandler),
             onBlur: allowInterop(_blurHander),
-            plugins: ['restore_on_backspace', 'remove_button',])); //'drag_drop'
+            plugins: plugins)); //'drag_drop'['restore_on_backspace', 'remove_button',]
+    if (lock) _selectRoot.lock();
   }
 
   _showLabel(bool show) {
@@ -66,6 +102,7 @@ class ComboElement extends PolymerElement {
 
   ///description when no select item
   @property String placeHolder;
+//n  @property String values;
 
   /// json string to data
   ///  [{label:"Red", data:"#FF0000"},
@@ -73,8 +110,6 @@ class ComboElement extends PolymerElement {
   //    {label:"Blue", data:"#0000FF"}];
   set dataProvider(List data) => addOptions(data);
 
-  /// max selectable items
-  @property int maxItem = 1;
   void createItem(value) {
     _selectRoot.createItem(value);
     _selectRoot.refreshItems();
@@ -110,13 +145,17 @@ class ComboElement extends PolymerElement {
 
   void detached() {
     super.detached();
+    if (_observeHandle != null) new PolymerDom($['content']).unobserveNodes(_observeHandle);
     print('${localName}#$id was detached');
   }
 
   //move node to select
-  void _getNodes(List _nodes) {
+/*  void _getNodes(List _nodes) {
     for (int i = 0; i < _nodes.length; i++) {
-      ($['body'] as SelectElement).append(_nodes[i]);
+      if (_nodes[i] is OptionElement && _nodes[i].selected) {
+        _showLabel(true);
+      }
     }
   }
+  */
 }

@@ -15,15 +15,13 @@ import 'package:slickdart/slick.dart' as grid;
 main() async {
 //  jqSelectBootstrap();
   await initPolymer();
-  var box = querySelector("combo-box") as ComboElement;
+  var box = querySelector("combo-box.week") as ComboBox;
 //  box.dataProvider = {};
   for (int i = 0; i < 3; ++i) box.addOption('$i@c');
   box.addOptions([
     {'label': 'tainan', 'data': 'zz'}
   ]);
-  ComboElement pg = querySelector('#pgCombo');
-  pg.addSelectedItem("5");
-  pg.removeSelectedItem("4");
+
 //  var el2 = document.querySelector("combo-box");
 //  print(iTag.options);
   new Timer(new Duration(seconds: 1), () {
@@ -38,10 +36,10 @@ main() async {
       ///not always custom event
     });
     dynamicEl.destory();
-//      dynamicEl.remove();
+    dynamicEl.remove();
   });
   for (int i = 0; i < 1; i++) {
-    ComboElement dynamicEl = document.createElement("combo-box");
+    ComboBox dynamicEl = document.createElement("combo-box");
     querySelector("body").append(dynamicEl);
     dynamicEl.destory();
 
