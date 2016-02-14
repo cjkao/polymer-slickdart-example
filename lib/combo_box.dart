@@ -15,7 +15,12 @@ class ComboBox extends PolymerElement {
   @property String removeButton;
   @property String dragDrop;
   @property String restoreOnBackspace;
-  @property get values => _selectRoot?.items?.toString();
+  @Property(notify: true, reflectToAttribute: true) String valueList = 'x';
+//  @Property(notify: true, reflectToAttribute: true) get valueList {
+//    _valueList=_selectRoot?.items?.toString();
+//    return _valueList;
+//  }
+
   @Property(observer: 'lockChange') bool lock = false;
 
   /// max selectable items
@@ -35,8 +40,12 @@ class ComboBox extends PolymerElement {
   }
   _changeHandler(value) {
     var e = new CustomEvent('change', detail: value);
-    this.attributes['value'] = value ?? '';
+    //this.attributes['value'] = value ?? '';
     this.dispatchEvent(e);
+    this.valueList = value;
+    //  set(valueList, value);
+    //  var e2 = new CustomEvent('value-list-changed');
+    //  this.dispatchEvent(e2);
   }
 
   _initHandler() {

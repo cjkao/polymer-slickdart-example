@@ -7,6 +7,7 @@ import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
 import 'package:slickdart/slick_custom.dart';
 import 'package:slickdart/slick.dart';
+import 'package:csslib/parser.dart' show parseSelectorGroup, parse;
 
 /// A Polymer `<data-grid>` element.
 //@CustomTag('main-app')
@@ -23,6 +24,23 @@ class DataGrid extends PolymerElement {
   void simpleInit(List data, List<Column> colDefs, {Map option}) {
     _gw0.init(data, colDefs, option: option);
     this.classes.add('resolved');
+    String txt = new PolymerDom($['extStyle']).getDistributedNodes().first.text;
+    if (txt.trim().length == 0) return;
+//    var group = parseSelectorGroup(txt);
+//    var sheet = parse(txt);
+//    group.selectors.forEach((_) {
+//      print(_);
+//      print(_.span.text);
+//    });
+    txt
+        .replaceAll('\r', ' ')
+        .replaceAll('\n', ' ')
+        .split('}')
+        .where((_) => _.trim().length > 0)
+        .map((_) => '$_}')
+        .forEach((_) => _gw0.setStyle(_));
+//    _gw0.setStyle(ntxt.first);
+//    _gw0.setStyle(ntxt.last);
   }
   // Optional lifecycle methods - uncomment if needed.
 
@@ -42,21 +60,4 @@ class DataGrid extends PolymerElement {
     newCols.insert(0, checkboxCol.getColumnDefinition());
     return newCols;
   }
-
-//  /// Called when an instance of main-app is removed from the DOM.
-//  detached() {
-//    super.detached();
-//  }
-
-//  /// Called when an attribute (such as a class) of an instance of
-//  /// main-app is added, changed, or removed.
-//  attributeChanged(String name, String oldValue, String newValue) {
-//    super.attributeChanges(name, oldValue, newValue);
-//  }
-
-//  /// Called when main-app has been fully prepared (Shadow DOM created,
-//  /// property observers set up, event listeners attached).
-//  ready() {
-//    super.ready();
-//  }
 }

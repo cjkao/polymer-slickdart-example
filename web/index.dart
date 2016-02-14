@@ -9,6 +9,7 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:js';
 import 'package:polymer_elements/iron_flex_layout/classes/iron_flex_layout.dart';
+import 'package:polymer_mx/data_grid.dart';
 
 import 'package:slickdart/slick.dart' as grid;
 
@@ -64,10 +65,4 @@ main() async {
     ..frozenColumn = 1;
 
   dg.simpleInit(data, columns, option: opt.toJson());
-
-  HttpRequest.getString('gss1983_Code-small.csv').then((data) {
-    var csv = new grid.CsvAdapter(data);
-    DataGrid dg = querySelector('data-grid.right-grid');
-    dg.simpleInit(csv.data, csv.columns, option: {'frozenRow': 1});
-  });
 }
