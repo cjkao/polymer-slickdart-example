@@ -47,8 +47,9 @@
       margin: 10px;
       width: inherit;
     }
-    .v600{
-      height:200px;
+
+    .v600 {
+      height: 200px;
     }
   </style>
 
@@ -65,7 +66,7 @@
           <div class='layout horizontal center' xon-change='pizzaChange'>
 
             <paper-checkbox checked={{locked}}>Lock a pizza </paper-checkbox>
-            <combo-box id='first-combo' class='h200' max-item='[[maxItem]]' place-holder='Select a pizza...' lock='[[locked]]' >
+            <combo-box id='first-combo' class='w200' max-item='[[maxItem]]' place-holder='Select [[maxItem]] pizza...' lock='[[locked]]'>
               <option value="2" selected>Pizza A/B</option>
               <option value="3">Pizza C</option>
               <option value="4">Pizza D</option>
@@ -74,7 +75,19 @@
             </combo-box>
             Lock state: {{locked}} {{comboValue}}
           </div>
+          <div class='center'>
+            <p>
+              strench to fill width
+            </p>
+            <combo-box id='second-combo' class='w200 ' max-item='1' place-holder='Select one pizza...'>
+              <option value="2" selected>Pizza A/B</option>
+              <option value="3">Pizza C</option>
+              <option value="4">Pizza D</option>
+              <option value="5">Pizza E</option>
+              <option value="6">Pizza F</option>
+            </combo-box>
 
+          </div>
         </div>
         <div>
           <paper-button raised id='dialogBtn'>
@@ -117,7 +130,7 @@
                   <option value="6">Saturday</option>
             </combo-box>
             <data-grid id='right-grid' class='flex'>
-              <p>
+              <span class='style'>
                 .slick-header-column {
                   background-color: #00F3FF;
                 }
@@ -126,7 +139,10 @@
                   overflow-x: hidden !important;
                   overflow-y: hidden !important;
                 }
-              </p>
+              </span>
+              <grid-column field='zzz'></grid-column>
+              <grid-column field='az'></grid-column>
+              <grid-column field='cz'></grid-column>
             </data-grid>
           </div>
         </div>

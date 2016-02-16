@@ -15,6 +15,7 @@ import 'dart:async';
 import 'dart:js';
 import 'package:slickdart/slick.dart' as grid;
 import 'package:polymer_mx/data_grid.dart';
+import 'package:polymer_mx/grid_column.dart';
 
 @PolymerRegister('date-el')
 class DateEl extends PolymerElement {
