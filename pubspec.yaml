@@ -22,10 +22,11 @@ transformers:
 - polymer:
     entry_points:
       - web/index.html
+      - web/grid/index.html
       - web/combobox/index.html
 - $dart2js:
     minify: true
-    commandLineOptions:
-    - --trust-type-annotations
-    - --trust-primitives
+#    commandLineOptions:
+#    - --trust-type-annotations
+#    - --trust-primitives
     $include: '**/*.bootstrap.initialize.dart'

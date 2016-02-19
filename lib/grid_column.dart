@@ -11,6 +11,7 @@ class GridColumn extends PolymerElement {
   @property String field;
   @property String headerText;
   void attached() {
-    print('-->$field');
+    print('${this.dataset["field"]} $headerText');
+//    print('-->$field');
   }
 }

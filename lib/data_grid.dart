@@ -33,13 +33,13 @@ class DataGrid extends PolymerElement {
         .where((_) => _.trim().length > 0)
         .map((_) => '$_}')
         .forEach((_) => _gw0.setStyle(_));
+    styleDom.text = '';
     styleDom.remove();
   }
   // Optional lifecycle methods - uncomment if needed.
 
 //  /// Called when an instance of main-app is inserted into the DOM.
   void attached() {
-    registerElem();
     _gw0 = $['jgrid'];
   }
 

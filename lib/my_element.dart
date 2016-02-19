@@ -36,13 +36,15 @@ class DateEl extends PolymerElement {
   void attached() {
     print('my elem attached');
 
-    ComboBox pg = $['pgCombo'];
-    pg.addSelectedItem("5");
-    pg.removeSelectedItem("4");
-    HttpRequest.getString('gss1983_Code-small.csv').then((data) {
-      var csv = new grid.CsvAdapter(data);
-      DataGrid dg = $['right-grid'];
-      dg.simpleInit(csv.data, csv.columns, option: {'frozenRow': 1, 'frozenColumn': 0});
+    new Future.delayed(new Duration(seconds: 1), () {
+      ComboBox pg = $['pgCombo'];
+      pg.addSelectedItem("5");
+      pg.removeSelectedItem("4");
+      HttpRequest.getString('gss1983_Code-small.csv').then((data) {
+        var csv = new grid.CsvAdapter(data);
+        DataGrid dg = $['right-grid'];
+        dg.simpleInit(csv.data, csv.columns, option: {'frozenRow': 1, 'frozenColumn': 0});
+      });
     });
   }
 
