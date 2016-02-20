@@ -2,7 +2,7 @@
   <style is="custom-style">
     iron-pages {
       width: 100%;
-      height: 600px;
+      height: 100%;
       font-size: 1em;
       color: black;
     }
@@ -48,8 +48,8 @@
       width: inherit;
     }
 
-    .v600 {
-      height: 200px;
+    #page3,.v600 {
+      height: 600px;
     }
   </style>
 
@@ -61,7 +61,7 @@
         <paper-tab>SPINNER</paper-tab>
         <paper-tab>Gird</paper-tab>
       </paper-tabs>
-      <iron-pages selected="{{selected}}">
+      <iron-pages id='mpages' selected="{{selected}}">
         <div class='container layout vertical'>
           <div class='layout horizontal center' xon-change='pizzaChange'>
 
@@ -86,7 +86,7 @@
               <option value="5">Pizza E</option>
               <option value="6">Pizza F</option>
             </combo-box>
-
+            <span hidden$='{{locked}}'>  pop:  {{popComboValue}}</span>
           </div>
         </div>
         <div>
@@ -98,11 +98,12 @@
             <div class='cc'>
               Lorem ipsum......................................................................................
               <combo-box id='popCombo' class='h200' max-item='[[maxItem]]' place-holder='Select a pizza...' lock$='[[locked]]'>
-                <option value="2" selected>Pizza A/B</option>
-                <option value="3">Pizza C</option>
-                <option value="4">Pizza D</option>
-                <option value="5">Pizza E</option>
-                <option value="6">Pizza F</option>
+                <option value="Pizza A/B" selected>Pizza A/B</option>
+                <option value="Pizza C">Pizza C</option>
+                <option value="Pizza D">Pizza D</option>
+                <option value="Pizza E">Pizza E</option>
+                <option value="Pizza F">Pizza F</option>
+                <option value="Pizza G">Pizza G</option>
               </combo-box>
 
             </div>
@@ -116,9 +117,9 @@
         <div>
           <paper-spinner alt="Loading contacts list" active></paper-spinner>
         </div>
-        <div>
-          <div class="vertical layout container flex v600">
-            Fronzend Data Grid
+        <div class="v600">
+          <div id='page3'class="vertical layout container flex">
+            Fronzend Lazy Load Data Grid
             <combo-box class='' id='pgCombo' max-item='5' place-holder='Select 5 days...'>
               <option value="0">Sunday</option>
               <option value="1">Monday
@@ -131,7 +132,7 @@
             </combo-box>
             <data-grid id='right-grid' class='flex'>
               <span class='style'>
-                .slick-header-column {
+                .slick-header-columns div.slick-header-column {
                   background-color: #00F3FF;
                 }
 
@@ -139,6 +140,9 @@
                   overflow-x: hidden !important;
                   overflow-y: hidden !important;
                 }
+                 div#grid {
+                   min-height:500px;
+                 }
               </span>
               <grid-column data-field='a' header-text='a'></grid-column>
               <grid-column data-field='b'header-text='b'></grid-column>

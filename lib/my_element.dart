@@ -19,17 +19,32 @@ import 'package:polymer_mx/grid_column.dart';
 
 @PolymerRegister('date-el')
 class DateEl extends PolymerElement {
-  @property String selected = '0';
+  @Property(observer: 'pageChanged') String selected = '0';
   @property String comboValue = '';
+  @property String popComboValue = '';
   @property bool locked = true;
   @property int maxItem = 3;
-
+  bool gridInit = false;
 //  @reflectable
   @Listen('first-combo.change')
   pizzaChange(Event e, var detail) {
-    print('header $detail');
-    //change property to reflect binding
     set('comboValue', detail.toString());
+  }
+
+  @Listen('popCombo.change')
+  popComboChange(Event e, var detail) {
+    set('popComboValue', detail);
+  }
+
+  @Listen('mpages.change') pageChanged(int newValue, int oldValue) {
+    if (newValue == 3 && !gridInit) {
+      //forth page
+      HttpRequest.getString('gss1983_Code-small.csv').then((data) {
+        var csv = new grid.CsvAdapter(data);
+        DataGrid dg = $['right-grid'];
+        dg.simpleInit(csv.data, csv.columns, option: {'frozenRow': 1, 'frozenColumn': 0});
+      });
+    }
   }
 
   DateEl.created() : super.created();
@@ -40,11 +55,6 @@ class DateEl extends PolymerElement {
       ComboBox pg = $['pgCombo'];
       pg.addSelectedItem("5");
       pg.removeSelectedItem("4");
-      HttpRequest.getString('gss1983_Code-small.csv').then((data) {
-        var csv = new grid.CsvAdapter(data);
-        DataGrid dg = $['right-grid'];
-        dg.simpleInit(csv.data, csv.columns, option: {'frozenRow': 1, 'frozenColumn': 0});
-      });
     });
   }
 

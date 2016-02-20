@@ -8,6 +8,7 @@ import 'package:polymer/polymer.dart';
 import 'package:slickdart/slick_custom.dart';
 import 'package:slickdart/slick.dart';
 import 'package:csslib/parser.dart' show parseSelectorGroup, parse;
+import 'dart:async';
 
 /// A Polymer `<data-grid>` element.
 @PolymerRegister('data-grid')

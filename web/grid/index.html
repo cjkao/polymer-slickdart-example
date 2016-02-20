@@ -5,19 +5,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <script src="packages/web_components/webcomponents.js"></script>
-  <script src="packages/web_components/dart_support.js"></script>
   <script type="application/dart" src="index.dart"></script>
   <script src="packages/browser/dart.js"></script>
   <link rel="import" href="packages/polymer_mx/data_grid.html">
+<script defer src='packages/selectize/selectize.js'></script>
   <style>
-  .slick-header-column {
-    background-color: #00F3FF;
-  }
 
-  .slick-viewport {
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
-  }
   </style>
 </head>
 
@@ -27,12 +20,7 @@
       <data-grid class='flex simple-grid'>
         <span class='style'>
           .slick-header-column {
-            background-color: #00F3FF;
-          }
-
-          .slick-viewport {
-            overflow-x: hidden !important;
-            overflow-y: hidden !important;
+            background-color: #20F3FF;
           }
         </span>
         <grid-column data-field='a' header-text='a'></grid-column>
@@ -54,5 +42,4 @@
   </combo-box>
 </body>
 
-<script defer src='packages/selectize/selectize.js'></script>
 </html>

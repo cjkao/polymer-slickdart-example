@@ -18,15 +18,14 @@ main() async {
   registerElem();
 //  jqSelectBootstrap();
   await initPolymer();
-  var box = querySelector("combo-box.week") as ComboBox;
-//  box.dataProvider = {};
-  for (int i = 0; i < 3; ++i) box.addOption('$i@c');
-  box.addOptions([
-    {'label': 'tainan', 'data': 'zz'}
-  ]);
 
 //  print(iTag.options);
   new Timer(new Duration(seconds: 1), () {
+    var box = querySelector("combo-box.week") as ComboBox;
+    for (int i = 0; i < 3; ++i) box.addOption('$i@c');
+    box.addOptions([
+      {'label': 'tainan', 'data': 'zz'}
+    ]);
     //  querySelector("#acc").remove();
     var dynamicEl = document.createElement("combo-box");
     dynamicEl.setAttribute("id", "my-element-id");
@@ -40,17 +39,18 @@ main() async {
     dynamicEl.destory();
     dynamicEl.detached();
     dynamicEl.remove();
+    for (int i = 0; i < 1; i++) {
+      ComboBox dynamicEl = document.createElement("combo-box");
+      querySelector("body").append(dynamicEl);
+      dynamicEl.destory();
+
+      dynamicEl.remove();
+      print('$i');
+    }
   });
-  for (int i = 0; i < 1; i++) {
-    ComboBox dynamicEl = document.createElement("combo-box");
-    querySelector("body").append(dynamicEl);
-    dynamicEl.destory();
 
-    dynamicEl.remove();
-    print('$i');
-  }
-
-  new Future.delayed(new Duration(seconds: 1), () {
+  new Future.delayed(new Duration(seconds: 3), () {
+    print('dg---');
     DataGrid dg = querySelector('data-grid.simple-grid');
     List data = [];
     for (var i = 0; i < 500; i++) {
