@@ -10,8 +10,8 @@ class GridColumn extends PolymerElement {
   GridColumn.created() : super.created();
   @property String field;
   @property String headerText;
-  void attached() {
-    print('${this.dataset["field"]} $headerText');
-//    print('-->$field');
-  }
+  @property int width;
+  @property bool resizable = true;
+  @property bool sortable = false;
+  @property bool editable = false;
 }

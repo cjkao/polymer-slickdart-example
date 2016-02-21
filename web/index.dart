@@ -67,6 +67,6 @@ main() async {
       ..explicitInitialization = false
       ..multiColumnSort = false
       ..frozenColumn = 1;
-    dg.simpleInit(data, columns, option: opt.toJson());
+    dg.polymerInit(data, columns, opt.toJson());
   });
 }

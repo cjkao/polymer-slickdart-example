@@ -42,7 +42,7 @@ class DateEl extends PolymerElement {
       HttpRequest.getString('gss1983_Code-small.csv').then((data) {
         var csv = new grid.CsvAdapter(data);
         DataGrid dg = $['right-grid'];
-        dg.simpleInit(csv.data, csv.columns, option: {'frozenRow': 1, 'frozenColumn': 0});
+        dg.polymerInit(csv.data, csv.columns, {'frozenRow': 1, 'frozenColumn': 0});
       });
     }
   }

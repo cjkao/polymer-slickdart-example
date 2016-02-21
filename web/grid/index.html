@@ -17,19 +17,22 @@
 <body>
 
   <div class="horizontal layout container">
+    <h1>Grid with grid-column</h1>
       <data-grid class='flex simple-grid'>
         <span class='style'>
           .slick-header-column {
             background-color: #20F3FF;
           }
+          div#grid{
+            height:600px;
+          }
         </span>
-        <grid-column data-field='a' header-text='a'></grid-column>
-        <grid-column data-field='b'header-text='b'></grid-column>
-        <grid-column data-field='c'header-text='c'></grid-column>
+        <grid-column data-field='title' header-text='TITLE' width='210'></grid-column>
+        <grid-column data-field='start' width='90'></grid-column>
+        <grid-column data-field='finish'></grid-column>
+        <grid-column data-field='effortDriven'header-text='Effort Driven'></grid-column>
       </data-grid>
-
-
-  </div>
+<paper-input id='pgInput' label="Input label"></paper-input>
   <combo-box class='' id='pgCombo' max-item='5' place-holder='Select 5 days...'>
     <option value="0">Sunday</option>
     <option value="1">Monday
