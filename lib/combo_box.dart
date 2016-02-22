@@ -8,6 +8,11 @@ import 'dart:math';
 import 'dart:js';
 import 'dart:html';
 
+///
+///  populate [CustomEvent] change event when change selected element
+///  pre-selected item will not pop event
+///
+///
 @PolymerRegister('combo-box')
 class ComboBox extends PolymerElement {
   int _nid = new Random().nextInt(1 << 32 - 1);
@@ -15,7 +20,7 @@ class ComboBox extends PolymerElement {
   @property String removeButton;
   @property String dragDrop;
   @property String restoreOnBackspace;
-  @Property(notify: true, reflectToAttribute: true) String valueList = 'x';
+  @Property(notify: true, reflectToAttribute: true) String valueList = '';
 //  @Property(notify: true, reflectToAttribute: true) get valueList {
 //    _valueList=_selectRoot?.items?.toString();
 //    return _valueList;
@@ -113,12 +118,13 @@ class ComboBox extends PolymerElement {
   @property String placeHolder;
 //n  @property String values;
 
-  /// json string to data
+  ///  json string to data to show options
   ///  [{label:"Red", data:"#FF0000"},
   ///   {label:"Green", data:"#00FF00"},
-  //    {label:"Blue", data:"#0000FF"}];
+  ///    {label:"Blue", data:"#0000FF"}];
   set dataProvider(List data) => addOptions(data);
 
+  ///item m
   void createItem(value) {
     _selectRoot.createItem(value);
     _selectRoot.refreshItems();
@@ -147,7 +153,6 @@ class ComboBox extends PolymerElement {
   }
 
   /// release event handler before dom element disappear
-  ///
   void destory() {
     _selectRoot.destroy();
   }
@@ -157,14 +162,4 @@ class ComboBox extends PolymerElement {
     if (_observeHandle != null) new PolymerDom($['content']).unobserveNodes(_observeHandle);
     print('${localName}#$id was detached');
   }
-
-  //move node to select
-/*  void _getNodes(List _nodes) {
-    for (int i = 0; i < _nodes.length; i++) {
-      if (_nodes[i] is OptionElement && _nodes[i].selected) {
-        _showLabel(true);
-      }
-    }
-  }
-  */
 }
