@@ -20,17 +20,34 @@ class ComboBox extends PolymerElement {
   @property String removeButton;
   @property String dragDrop;
   @property String restoreOnBackspace;
-  @Property(notify: true, reflectToAttribute: true) String valueList = '';
-//  @Property(notify: true, reflectToAttribute: true) get valueList {
-//    _valueList=_selectRoot?.items?.toString();
-//    return _valueList;
-//  }
+  @Property(notify: true, reflectToAttribute: true, observer: 'itemChange') List valueList;
 
+  /// single value, always first value
+  @Property(notify: true) Object value;
   @Property(observer: 'lockChange') bool lock = false;
 
   /// max selectable items
   @property int maxItem = 1;
 
+  /// parent to this child  control, but mixed with interal change event
+  @reflectable itemChange(newValue, oldValue) {
+    if (lock) {
+      print('you need to un-lock combo');
+      return;
+    }
+    print('item change $newValue');
+    _selectRoot?.setValue(newValue, true);
+  }
+
+  ///internal change and reflect to combobox
+  _changeHandler(List value) {
+    var e = new CustomEvent('change', detail: value);
+    this.dispatchEvent(e);
+    set('valueList', value);
+    set('value', value?.first);
+  }
+
+  /// parent to this combo, state control
   @reflectable lockChange(bool newLock, bool oldLock) {
     if (newLock == true) {
       _selectRoot?.lock();
@@ -42,15 +59,6 @@ class ComboBox extends PolymerElement {
   Object _observeHandle;
   ComboBox.created() : super.created() {
     print('created');
-  }
-  _changeHandler(value) {
-    var e = new CustomEvent('change', detail: value);
-    //this.attributes['value'] = value ?? '';
-    this.dispatchEvent(e);
-    this.valueList = value;
-    //  set(valueList, value);
-    //  var e2 = new CustomEvent('value-list-changed');
-    //  this.dispatchEvent(e2);
   }
 
   _initHandler() {
@@ -85,13 +93,11 @@ class ComboBox extends PolymerElement {
 
     ($['body'] as SelectElement)
       ..id = "$_nid"
-      ..attributes['placeholder'] = placeHolder;
-    //_getNodes(new PolymerDom($['pre-opt']).getDistributedNodes());
+      ..attributes['placeholder'] = placeHolder ?? '';
     var plugins = [];
     if (removeButton != null) plugins.add('remove_button');
     if (dragDrop != null) plugins.add('drag_drop');
     if (restoreOnBackspace != null) plugins.add('restore_on_backspace');
-    //  print($['body'].id);
     _selectRoot = selectize(
         "#$_nid",
         new SelectOptions(
@@ -151,6 +157,8 @@ class ComboBox extends PolymerElement {
       }
     });
   }
+
+  void clearOptions() => _selectRoot.clearOptions();
 
   /// release event handler before dom element disappear
   void destory() {

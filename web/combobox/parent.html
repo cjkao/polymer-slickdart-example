@@ -1,0 +1,65 @@
+<dom-module id="combo-el">
+<style is="custom-style">
+  .item-container {
+    display: inline-block;
+    height:30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+  }
+  .item-continer> span{
+    padding-top:20px;
+  }
+  /* Need to position the badge to look like a text superscript */
+  .item-container > paper-badge {
+    --paper-badge-margin-left: 20px;
+    --paper-badge-margin-bottom: 0px;
+  }
+</style>
+  <template>
+    <div class='layout vertical '>
+      <h1>COMBO PARENT, Single Selection</h1>
+      <div class='container layout vertical'>
+        <div class='layout horizontal center'>
+          <paper-button raised id='changeComboBtn'>Change Combo box value:4</paper-button>
+          <paper-button raised id='xComboBtn'>Wrong Combo box value:114</paper-button>
+        </div>
+        <div class='layout horizontal center'>
+          <paper-checkbox checked={{locked}}>Lock a pizza </paper-checkbox>
+          Lock state: {{locked}} , host property is:[[comboValue]], .
+        </div>
+        <div class='center'>
+          <combo-box id='secondcombo' class='w200 ' max-item='1' lock='{{locked}}' value-list='{{comboValue}}' place-holder='Select one pizza...'>
+            <option value="2" selected>Pizza A/B</option>
+            <option value="3">Pizza C</option>
+            <option value="4">Pizza D</option>
+            <option value="5">Pizza E</option>
+            <option value="6">Pizza F</option>
+          </combo-box>
+          <span hidden$='{{locked}}'>  Bind value-list to String of comboValueArr:  {{comboValue}}</span>
+        </div>
+      </div>
+
+      <div class='container layout vertical'>
+        <paper-button raised id='multiComboBtn'>Change value to E and F</paper-button>
+      </div>
+      <div class='layout horizontal center'>Bind value-list to Array of 'comboValueArr':
+        <template is="dom-repeat" items="{{comboValueArr}}">
+          <div class="item-container">
+            <paper-radio-button checked>{{index}}-{{item}}</paper-radio-button>
+          </div>
+        </template>
+      </div>
+      <div class='center'>
+        <combo-box id='secondcombo' class='w200 ' max-item='5' value-list='{{comboValueArr}}'>
+          <option value="Pizza_B" >Pizza B</option>
+          <option value="Pizza_C">Pizza C</option>
+          <option value="Pizza_D">Pizza D</option>
+          <option value="Pizza_E">Pizza E</option>
+          <option value="Pizza_F">Pizza F</option>
+        </combo-box>
+      </div>
+    </div>
+    </div>
+  </template>
+</dom-module>

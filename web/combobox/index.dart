@@ -9,7 +9,7 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:js';
 import 'package:polymer_elements/iron_flex_layout/classes/iron_flex_layout.dart';
-
+import 'parent.dart';
 import 'package:slickdart/slick.dart' as grid;
 
 main() async {
