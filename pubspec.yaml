@@ -15,15 +15,17 @@ dependencies:
   selectize:
     path: ../selectize
 #  polymer_datepicker: ^0.9.2
-#  autonotify_observe: ^1.0.0
+  autonotify_observe: ^1.0.0
 #  less_dart: any
 transformers:
 #- less_dart
+- autonotify_observe
 - polymer:
     entry_points:
       - web/index.html
       - web/grid/index.html
       - web/combobox/index.html
+      - web/combobox/datasource/index.html
       - web/dropdownmenu/index.html
 - $dart2js:
     minify: true

@@ -1,13 +1,26 @@
 <dom-module id="combo-data-source">
+  <style is='custom-style'>
+  paper-button#btn:hover {
+      background-color: var(--paper-pink-a200);
+   }
+   paper-button:hover {
+       background-color: var(--paper-indigo-100);
+     }
+     div.layout{
+       margin:5px;
+     }
+  </style>
   <template>
     Selected Value:-{{comboValue}}-
     <div class='container layout vertical'>
       <h1>COMBO PARENT, Single Selection</h1>
-      <div class='layout horizontal'>
-      <paper-button raised id='btn'>Change Combo data source</paper-button>
-      <paper-button id='btnEmpty'>empty  data source</paper-button>
+      <div class='layout horizontal center'>
+      Change combo source:
+      <paper-button raised id='btn'>To String</paper-button>
+      <paper-button raised id='btnhex'>To HEX</paper-button>
+      <paper-button raised id='btnEmpty'>empty it </paper-button>
       </div>
-      <combo-box id='combo' max-item='1' value-list='{{comboValue}}' data-provider='{{comboSource}}'>
+      <combo-box id='combo' max-item='1' value-list='{{comboValue}}' data-provider='{{model.comboSource}}'>
       </combo-box>
     </div>
   </template>

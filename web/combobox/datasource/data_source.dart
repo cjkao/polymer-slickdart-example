@@ -10,18 +10,23 @@ import 'package:polymer_mx/combo_box.dart';
 import 'dart:html';
 import 'dart:async';
 import 'dart:js';
+import "package:observe/observe.dart";
+import "package:polymer_autonotify/polymer_autonotify.dart" show AutonotifyBehavior;
+
+class MyModel extends Observable {
+  @observable List comboSource;
+}
 
 @PolymerRegister('combo-data-source')
-class ComboDataSource extends PolymerElement {
+class ComboDataSource extends PolymerElement with AutonotifyBehavior, Observable {
   /// selected combobox value
   @property String comboValue = '';
+  @observable
+  @property
+  MyModel model;
 
   ///initialize combo data provider
-  @property List comboSource = [
-    {'label': "Red", 'value': "#FF0000"},
-    {'label': "Green", 'value': "#00FF00"},
-    {'label': "Blue", 'value': "#0000FF"}
-  ];
+  @property List comboSource;
 
   ///change data provider
   @Listen('btn.tap') changeCombo(event, _) {
@@ -30,14 +35,28 @@ class ComboDataSource extends PolymerElement {
       {'label': "Green_2", 'value': "green"},
       {'label': "Blue_3", 'value': "blue"}
     ];
-    set('comboSource', src);
+    model.comboSource = src;
+//    set('comboSource', src);
+  }
+
+  @Listen('btnhex.tap') changeComboHex(event, _) {
+    var src = [
+      {'label': "Red FF0000", 'value': "#FF0000"},
+      {'label': "Green 00FF00", 'value': "#00FF00"},
+      {'label': "Blue 0000FF", 'value': "#0000FF"}
+    ];
+    model.comboSource = src;
+    //set('comboSource', src);
   }
 
   ///empty data provider
   @Listen('btnEmpty.tap') emptyCombo(event, _) {
-    set('comboSource', null);
+    model.comboSource = null;
+    //set('comboSource', null);
   }
 
   ComboDataSource.created() : super.created();
-  void attached() {}
+  void attached() {
+    model = new MyModel();
+  }
 }

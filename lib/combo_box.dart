@@ -44,7 +44,7 @@ class ComboBox extends PolymerElement {
       return new Future.delayed(new Duration(seconds: 1), () => providerChange(data, oldList));
     }
     _selectRoot.clearOptions();
-    addOptions(data);
+    if (data != null) addOptions(data);
   }
 
   /// parent to this child  control, but mixed with interal change event
@@ -53,7 +53,7 @@ class ComboBox extends PolymerElement {
       print('you need to un-lock combo');
       return;
     }
-    print('item change $newValue');
+    //  print('item change $newValue');
     _selectRoot?.setValue(newValue, true);
   }
 
@@ -76,7 +76,7 @@ class ComboBox extends PolymerElement {
 
   Object _observeHandle;
   ComboBox.created() : super.created() {
-    print('created');
+    //  print('created');
   }
 
   _initHandler() {
