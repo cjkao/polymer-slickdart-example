@@ -1,0 +1,14 @@
+<dom-module id="combo-data-source">
+  <template>
+    Selected Value:-{{comboValue}}-
+    <div class='container layout vertical'>
+      <h1>COMBO PARENT, Single Selection</h1>
+      <div class='layout horizontal'>
+      <paper-button raised id='btn'>Change Combo data source</paper-button>
+      <paper-button id='btnEmpty'>empty  data source</paper-button>
+      </div>
+      <combo-box id='combo' max-item='1' value-list='{{comboValue}}' data-provider='{{comboSource}}'>
+      </combo-box>
+    </div>
+  </template>
+</dom-module>

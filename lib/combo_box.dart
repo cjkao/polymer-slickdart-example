@@ -7,11 +7,12 @@ import 'package:polymer/polymer.dart';
 import 'dart:math';
 import 'dart:js';
 import 'dart:html';
+import 'dart:async';
 
 ///
 ///  populate [CustomEvent] change event when change selected element
 ///  pre-selected item will not pop event
-///
+///  max options is 100000
 ///
 @PolymerRegister('combo-box')
 class ComboBox extends PolymerElement {
@@ -28,6 +29,23 @@ class ComboBox extends PolymerElement {
 
   /// max selectable items
   @property int maxItem = 1;
+
+  ///description when no select item
+  @property String placeHolder;
+
+  ///  json string to data to show options
+  ///  [{label:"Red", value:"#FF0000"},
+  ///   {label:"Green", value:"#00FF00"},
+  ///    {label:"Blue", value:"#0000FF"}];
+  @Property(observer: 'providerChange') List dataProvider;
+
+  @reflectable providerChange(List data, List oldList) {
+    if (_selectRoot == null) {
+      return new Future.delayed(new Duration(seconds: 1), () => providerChange(data, oldList));
+    }
+    _selectRoot.clearOptions();
+    addOptions(data);
+  }
 
   /// parent to this child  control, but mixed with interal change event
   @reflectable itemChange(newValue, oldValue) {
@@ -101,6 +119,7 @@ class ComboBox extends PolymerElement {
     _selectRoot = selectize(
         "#$_nid",
         new SelectOptions(
+            maxOptions: 100000,
             maxItems: maxItem,
             onChange: allowInterop(_changeHandler),
             onInitialize: allowInterop(_initHandler),
@@ -120,16 +139,6 @@ class ComboBox extends PolymerElement {
 
   Options get options => _selectRoot.options;
 
-  ///description when no select item
-  @property String placeHolder;
-//n  @property String values;
-
-  ///  json string to data to show options
-  ///  [{label:"Red", data:"#FF0000"},
-  ///   {label:"Green", data:"#00FF00"},
-  ///    {label:"Blue", data:"#0000FF"}];
-  set dataProvider(List data) => addOptions(data);
-
   ///item m
   void createItem(value) {
     _selectRoot.createItem(value);
@@ -139,8 +148,8 @@ class ComboBox extends PolymerElement {
   void addSelectedItem(String value, [bool silent = true]) => _selectRoot.addItem(value, true);
   void removeSelectedItem(String value, [bool silent = true]) => _selectRoot.removeItem(value, true);
 
-  void addOption(String data, [String label]) {
-    _selectRoot.addOption(new OptValue(value: data, text: label ?? data));
+  void addOption(String value, [String label]) {
+    _selectRoot.addOption(new OptValue(value: value, text: label ?? value));
   }
 
   ///  [optList] is string list
@@ -153,7 +162,7 @@ class ComboBox extends PolymerElement {
       } else if (_ is OptValue) {
         _selectRoot.addOption(_);
       } else if (_ is Map) {
-        _selectRoot.addOption(new OptValue(value: _['data'], text: _['label'] ?? _['data']));
+        _selectRoot.addOption(new OptValue(value: _['value'], text: _['label'] ?? _['value']));
       }
     });
   }
