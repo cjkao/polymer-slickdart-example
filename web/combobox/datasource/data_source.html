@@ -11,8 +11,14 @@
      }
   </style>
   <template>
-    Selected Value:-{{comboValue}}-
-    <div class='container layout vertical'>
+  <div>
+     Selected Value:-{{model.comboValue}}-
+  </div>
+  <div>
+
+   Selected List:-{{model.comboList}}-
+  </div>
+   <div class='container layout vertical'>
       <h1>COMBO PARENT, Single Selection</h1>
       <div class='layout horizontal center'>
       Change combo source:
@@ -20,7 +26,9 @@
       <paper-button raised id='btnhex'>To HEX</paper-button>
       <paper-button raised id='btnEmpty'>empty it </paper-button>
       </div>
-      <combo-box id='combo' max-item='1' value-list='{{comboValue}}' data-provider='{{model.comboSource}}'>
+      <combo-box id='combo' max-item='1' value-list='{{model.comboList}}'  value='{{model.comboValue}}' data-provider='{{model.comboSource}}'>
+      </combo-box>
+      <combo-box max-item='2' value-list='{{model.comboList}}'  value='{{model.comboValue}}' data-provider='{{model.comboSource}}'>
       </combo-box>
     </div>
   </template>

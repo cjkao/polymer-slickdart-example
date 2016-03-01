@@ -24,7 +24,7 @@ class ComboBox extends PolymerElement {
   @Property(notify: true, reflectToAttribute: true, observer: 'itemChange') List valueList;
 
   /// single value, always first value
-  @Property(notify: true) Object value;
+  @Property(notify: true, observer: 'itemChange') Object value;
   @Property(observer: 'lockChange') bool lock = false;
 
   /// max selectable items
@@ -41,7 +41,9 @@ class ComboBox extends PolymerElement {
 
   @reflectable providerChange(List data, List oldList) {
     if (_selectRoot == null) {
-      return new Future.delayed(new Duration(seconds: 1), () => providerChange(data, oldList));
+      if (data != null) {
+        return new Future.delayed(new Duration(milliseconds: 300), () => providerChange(data, oldList));
+      }
     }
     _selectRoot.clearOptions();
     if (data != null) addOptions(data);
@@ -158,7 +160,7 @@ class ComboBox extends PolymerElement {
   void addOptions(List optList) {
     optList.forEach((_) {
       if (_ is String) {
-        _selectRoot.addOption(new OptValue(value: _));
+        _selectRoot.addOption(new OptValue(value: _, text: _));
       } else if (_ is OptValue) {
         _selectRoot.addOption(_);
       } else if (_ is Map) {

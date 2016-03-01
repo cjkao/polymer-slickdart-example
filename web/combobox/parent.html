@@ -1,22 +1,42 @@
 <dom-module id="combo-el">
-<style is="custom-style">
-  .item-container {
+  <style is="custom-style">
+    .item-container {
+      display: inline-block;
+      height: 30px;
+      margin-left: 5px;
+      margin-right: 5px;
+      margin-top: 10px;
+    }
+
+    .item-continer> span {
+      padding-top: 20px;
+    }
+    /* Need to position the badge to look like a text superscript */
+
+    .item-container > paper-badge {
+      --paper-badge-margin-left: 20px;
+      --paper-badge-margin-bottom: 0px;
+    }
+    button {
     display: inline-block;
-    height:30px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 10px;
-  }
-  .item-continer> span{
-    padding-top:20px;
-  }
-  /* Need to position the badge to look like a text superscript */
-  .item-container > paper-badge {
-    --paper-badge-margin-left: 20px;
-    --paper-badge-margin-bottom: 0px;
-  }
-</style>
+    position: relative;
+    width: 120px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 2px;
+    font-size: 0.9em;
+    background-color: #caf;
+    color: #646464;
+    }
+    .relative{
+      position:relative;
+    }
+  </style>
   <template>
+    <div class="button">
+            <div class="center" fit="" tabindex="1">DECLINE</div>
+
+    </div>
     <div class='layout vertical '>
       <h1>COMBO PARENT, Single Selection</h1>
       <div class='container layout vertical'>
@@ -43,16 +63,17 @@
       <div class='container layout vertical'>
         <paper-button raised id='multiComboBtn'>Change value to E and F</paper-button>
       </div>
-      <div class='layout horizontal center'>Bind value-list to Array of 'comboValueArr':
+      <div class='layout horizontal center relative'>Bind value-list to Array of 'comboValueArr':
         <template is="dom-repeat" items="{{comboValueArr}}">
           <div class="item-container">
             <paper-radio-button checked>{{index}}-{{item}}</paper-radio-button>
           </div>
         </template>
+        <paper-ripple id='ripple' noink='true'><paper-ripple>
       </div>
       <div class='center'>
         <combo-box id='secondcombo' class='w200 ' max-item='5' value-list='{{comboValueArr}}'>
-          <option value="Pizza_B" >Pizza B</option>
+          <option value="Pizza_B">Pizza B</option>
           <option value="Pizza_C">Pizza C</option>
           <option value="Pizza_D">Pizza D</option>
           <option value="Pizza_E">Pizza E</option>

@@ -6,6 +6,7 @@ import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/paper_checkbox.dart';
 import 'package:polymer_elements/paper_button.dart';
 import 'package:polymer_elements/paper_radio_button.dart';
+import 'package:polymer_elements/paper_ripple.dart';
 import 'package:polymer_mx/combo_box.dart';
 import 'dart:html';
 import 'dart:async';
@@ -29,6 +30,8 @@ class ComboEl extends PolymerElement {
 
   @Listen('multiComboBtn.tap') changeComboList(event, _) {
     set('comboValueArr', ['Pizza_F', 'Pizza_E']);
+    //  ($['ripple'] as PaperRipple).holdDown = true;
+    //  new Future.delayed(new Duration(milliseconds: 100), () => $['ripple'].holdDown = false);
   }
 
   ComboEl.created() : super.created();

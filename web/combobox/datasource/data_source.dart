@@ -15,18 +15,18 @@ import "package:polymer_autonotify/polymer_autonotify.dart" show AutonotifyBehav
 
 class MyModel extends Observable {
   @observable List comboSource;
+  @observable String comboValue;
+  @observable List comboList;
 }
 
 @PolymerRegister('combo-data-source')
 class ComboDataSource extends PolymerElement with AutonotifyBehavior, Observable {
-  /// selected combobox value
-  @property String comboValue = '';
   @observable
   @property
   MyModel model;
 
   ///initialize combo data provider
-  @property List comboSource;
+  //@property List comboSource;
 
   ///change data provider
   @Listen('btn.tap') changeCombo(event, _) {
@@ -36,7 +36,6 @@ class ComboDataSource extends PolymerElement with AutonotifyBehavior, Observable
       {'label': "Blue_3", 'value': "blue"}
     ];
     model.comboSource = src;
-//    set('comboSource', src);
   }
 
   @Listen('btnhex.tap') changeComboHex(event, _) {
@@ -46,13 +45,11 @@ class ComboDataSource extends PolymerElement with AutonotifyBehavior, Observable
       {'label': "Blue 0000FF", 'value': "#0000FF"}
     ];
     model.comboSource = src;
-    //set('comboSource', src);
   }
 
   ///empty data provider
   @Listen('btnEmpty.tap') emptyCombo(event, _) {
     model.comboSource = null;
-    //set('comboSource', null);
   }
 
   ComboDataSource.created() : super.created();
