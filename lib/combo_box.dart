@@ -41,9 +41,11 @@ class ComboBox extends PolymerElement {
 
   @reflectable providerChange(List data, List oldList) {
     if (_selectRoot == null) {
-      if (data != null) {
-        return new Future.delayed(new Duration(milliseconds: 300), () => providerChange(data, oldList));
+      if (data?.length > 0) {
+        //initialize and have content
+        new Future.delayed(new Duration(milliseconds: 300), () => providerChange(data, oldList));
       }
+      return;
     }
     _selectRoot.clearOptions();
     if (data != null) addOptions(data);
